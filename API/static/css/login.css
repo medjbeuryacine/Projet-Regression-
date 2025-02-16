@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d3d3d3;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.header {
+    background-color: #0a358c;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 100%;
+}
+.logo {
+    background-color: lightgray;
+    padding: 10px;
+    margin-right: 10px;
+}
+.title {
+    color: #0a358c;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.btn button {
+    background-color: #0056b3; /* Bleu */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px; /* Arrondi */
+    width: 100%; /* Prend toute la largeur */
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+/* Effet au survol */
+.btn button:hover {
+    background-color: #003d80;
+    transform: scale(1.05); /* Légère animation */
+}
+
+/* Centrer le formulaire */
+.login-container {
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+    text-align: center;
+}
+.footer {
+    background-color: #0a358c;
+    color: white;
+    padding: 10px;
+    width: 100%;
+}
+
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    color: white;
+    width: 300px;
+}
+
+
+.input-field {
+    margin: 15px 0;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    background: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.input-field input::placeholder {
+    color: #747474(255, 241, 241);
+}
+.input-field input:focus {
+    outline: none;
+    border-bottom: 1px solid #ffffff;
+}
