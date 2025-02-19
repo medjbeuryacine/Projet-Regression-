@@ -1,0 +1,170 @@
+/* Style de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d3d3d3;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* En-tête */
+.header {
+    background-color: #0a358c;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Bouton déconnexion */
+.logout-btn {
+    font-size: 20px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.logout-btn i {
+    margin-right: 8px;
+}
+
+/* Contenu principal */
+.container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.title {
+    color: #0a358c;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #0a358c;
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+/* Formulaire */
+.form-container {
+    border: 2px solid #ccc;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.form-container h2 {
+    color: #0a358c;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #0a358c;
+    outline: none;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.flex-row .form-group {
+    width: 48%;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.btn {
+    background-color: #FF6F00;
+    color: white;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+.btn:hover {
+    background-color: #c05606;
+    transform: scale(1.05);
+}
+
+/* Résultat du prix */
+.result-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.result-container input {
+    width: 60%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #0a358c;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    background-color: #0a358c;
+    color: white;
+    padding: 10px;
+    width: 100%;
+}

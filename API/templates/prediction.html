@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimation du prix d'une voiture d'occasion</title>
+    <!-- Lien vers Font Awesome pour les icônes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">            
+            <span>LINY</span>
+        </div>
+        <button class="logout-btn"><i class="fa fa-sign-out"></i>Déconnexion</button>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <h2>Estimation du prix de votre voiture d'occasion</h2>
+            <div class="flex-row">
+                <div class="form-group">
+                    <label for="marque">Marque:</label>
+                    <select id="marque" name="marque" required>
+                        <option value=""></option>
+                        <option value="peugeot">Peugeot</option>
+                        <option value="fiat">Fiat</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modele">Modèle:</label>
+                    <select id="modele" name="modele" required>
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex-row">
+                <div class="form-group">
+                    <label for="annee">Année:</label>
+                    <input type="number" id="annee" name="annee" required>
+                </div>
+                <div class="form-group">
+                    <label for="kilometrage">Kilométrage (en km):</label>
+                    <input type="number" id="kilometrage" name="kilometrage" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="btn" type="submit">Prédire le prix</button>
+        </div>
+
+        <div class="result-container">
+            <input type="text" id="prix-estime" placeholder="Prix estimé" disabled>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2025 LINY Voitures d'Occasion. Tous droits réservés.
+    </div>
+</body>
+</html>
