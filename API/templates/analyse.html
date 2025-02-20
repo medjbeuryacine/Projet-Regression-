@@ -3,88 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyse du Prix du Marché</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Analyse du marché</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Analyse du Prix du Marché</h1>
-    
-    <h2>Évolution du Prix</h2>
-    <canvas id="priceEvolutionChart"></canvas>
-    
-    <h2>Plus Grande Évolution sur une Année</h2>
-    <canvas id="priceChangeChart"></canvas>
-</div>
+    <div class="header">
+        <div class="logo-container">            
+            <span>LINY</span>
+        </div>
+        <form action="/logout" method="get">
+            <button class="logout-btn" type="submit">Déconnexion</button>
+        </form>
+    </div>
 
-<div class="button-container">
-    <button onclick="predictPrice()">Prédire un Prix</button>
-</div>
 
-<script>
-    // Données pour le graphique de l'évolution du prix
-    const priceEvolutionCtx = document.getElementById('priceEvolutionChart').getContext('2d');
-    const priceEvolutionChart = new Chart(priceEvolutionCtx, {
-        type: 'line',
-        data: {
-            labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
-            datasets: [{
-                label: 'Prix moyen (en €)',
-                data: [20000, 21000, 22000, 23000, 24000, 25000],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
+
+    <div class="contenu-principal">
+        <div>
+            <h1 class="title">Analyse du marché</h1>
+        </div>
+        <div class="form-container">
+            <div class="sous-form-container">
+                <div class="flex-row">
+                    <div class="form-group">
+                        <select class="filter" id="marque">
+                            <option value="" disabled selected>Marque</option>
+                            <option value="marque1">1</option>
+                            <option value="marque2">2</option>
+                            <option value="marque3">3</option>
+                            <option value="marque4">4</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="filter" id="carburant">
+                            <option value="" disabled selected>Modèle</option>
+                            <option value="essence">1</option>
+                            <option value="diesel">2</option>
+                            <option value="electrique">3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="filter" id="annee">
+                            <option value="" disabled selected>Année</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="graph-container">
+            <div class="div-graph">
+                <canvas id="dynamicChart1"></canvas>
+            </div>
+            <div class="div-graph">
+                <canvas id="dynamicChart2"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <form action="/prediction" method="get">
+        <div class="buttons-pages-container">
+            <button class="btn" type="submit">Changer le modèle de prédiction</button>
+            <button class="btn" type="submit">Prédire un prix</button>
+        </div>
+    </form>
+
+    <div class="footer">
+        &copy; 2025 LINY Voitures d'Occasion. Tous droits réservés.
+    </div>
+
+
+
+
+    <script>
+        let dynamicChart1, dynamicChart2;
+
+        // Initialisation des graphiques avec des données par défaut
+        function initCharts() {
+            const ctx1 = document.getElementById('dynamicChart1').getContext('2d');
+            const ctx2 = document.getElementById('dynamicChart2').getContext('2d');
+
+            dynamicChart1 = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Graphique 1 - Prix',
+                        data: [200, 220, 300, 280, 350, 400, 500],
+                        backgroundColor: 'rgba(0, 198, 255, 0.3)',
+                        borderColor: 'rgba(0, 198, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
                 }
-            }
-        }
-    });
+            });
 
-    // Données pour le graphique de la plus grande évolution
-    const priceChangeCtx = document.getElementById('priceChangeChart').getContext('2d');
-    const priceChangeChart = new Chart(priceChangeCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Marque A', 'Marque B', 'Marque C'],
-            datasets: [{
-                label: 'Évolution du prix (en %)',
-                data: [15, 25, 10],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
+            dynamicChart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Graphique 2 - Volume',
+                        data: [150, 180, 250, 230, 300, 380, 450],
+                        backgroundColor: 'rgba(255, 99, 132, 0.3)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
                 }
-            }
+            });
         }
-    });
 
-    // Fonction pour prédire un prix
-    function predictPrice() {
-        alert("Fonction de prédiction de prix à implémenter !");
-    }
-</script>
+        // Mise à jour des graphiques en fonction des sélections de filtres
+        function updateChartData() {
+            const annee = document.getElementById('annee').value;
+            const marque = document.getElementById('marque').value;
+            const carburant = document.getElementById('carburant').value;
+
+            const updatedData1 = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: `Graphique 1: ${marque} - ${carburant} - ${annee} Prix`,
+                    data: generateMockData(),
+                    backgroundColor: 'rgba(0, 198, 255, 0.3)',
+                    borderColor: 'rgba(0, 198, 255, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const updatedData2 = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: `Graphique 2: ${marque} - ${carburant} - ${annee} Volume`,
+                    data: generateMockData(),
+                    backgroundColor: 'rgba(255, 99, 132, 0.3)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Mise à jour des données pour chaque graphique
+            dynamicChart1.data = updatedData1;
+            dynamicChart1.update();
+
+            dynamicChart2.data = updatedData2;
+            dynamicChart2.update();
+        }
+
+        // Fonction pour générer des données aléatoires
+        function generateMockData() {
+            return Array.from({ length: 7 }, () => Math.floor(Math.random() * 500) + 200);
+        }
+
+        // Écouteurs d'événements pour les filtres
+        document.getElementById('annee').addEventListener('change', updateChartData);
+        document.getElementById('marque').addEventListener('change', updateChartData);
+        document.getElementById('carburant').addEventListener('change', updateChartData);
+
+        // Initialisation des graphiques au chargement de la page
+        window.onload = initCharts;
+    </script>
 
 </body>
 </html>

@@ -86,6 +86,13 @@ async def prediction_page(request:Request):
 async def prediction():
     pass
 
+#____________________________________________________________déconnexion______________________________________________________
+
+@app.get("/logout")
+async def logout(request: Request):
+    response = RedirectResponse(url="/")  # Redirection vers la page d'accueil
+    return response
+
 
 
 

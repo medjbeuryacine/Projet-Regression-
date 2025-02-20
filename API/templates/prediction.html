@@ -4,52 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estimation du prix d'une voiture d'occasion</title>
-    <!-- Lien vers Font Awesome pour les icônes -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+
     <div class="header">
         <div class="logo-container">            
             <span>LINY</span>
         </div>
-        <button class="logout-btn"><i class="fa fa-sign-out"></i>Déconnexion</button>
+        <form action="/logout" method="get">
+            <button class="logout-btn" type="submit">Déconnexion</button>
+        </form>
     </div>
-    <div class="container">
-        <div class="form-container">
-            <h2>Estimation du prix de votre voiture d'occasion</h2>
-            <div class="flex-row">
-                <div class="form-group">
-                    <label for="marque">Marque:</label>
-                    <select id="marque" name="marque" required>
-                        <option value=""></option>
-                        <option value="peugeot">Peugeot</option>
-                        <option value="fiat">Fiat</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="modele">Modèle:</label>
-                    <select id="modele" name="modele" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="flex-row">
-                <div class="form-group">
-                    <label for="annee">Année:</label>
-                    <input type="number" id="annee" name="annee" required>
+    <div class="contenu-principal">
+        <div>
+            <h1 class="title">Analyse du marché</h1>
+        </div>
+        <div class="form-container">
+            <div class="sous-form-container">
+                <h2>Saisissez les caractéristiques de votre véhicule</h2>
+                <div class="flex-row">
+                    <!-- Marque -->
+                    <div class="form-group">
+                        <label for="marque">Marque:</label>
+                        <select id="marque" name="marque" required>
+                            <option value=""></option>
+                            <option value="peugeot">Peugeot</option>
+                            <option value="fiat">Fiat</option>
+                            <!-- Ajouter d'autres marques si nécessaire -->
+                        </select>
+                    </div>
+                    <!-- Modèle -->
+                    <div class="form-group">
+                        <label for="modele">Modèle:</label>
+                        <select id="modele" name="modele" required>
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <!-- Ajouter d'autres modèles si nécessaire -->
+                        </select>
+                    </div>
+                    <!-- Transmission -->
+                    <div class="form-group">
+                        <label for="transmission">Transmission:</label>
+                        <select id="transmission" name="transmission" required>
+                            <option value=""></option>
+                            <option value="manuelle">Manuelle</option>
+                            <option value="automatique">Automatique</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="kilometrage">Kilométrage (en km):</label>
-                    <input type="number" id="kilometrage" name="kilometrage" required>
+
+                <div class="flex-row">
+                    <!-- Type de carburant -->
+                    <div class="form-group">
+                        <label for="carburant">Type de carburant :</label>
+                        <select id="carburant" name="carburant" required>
+                            <option value=""></option>
+                            <option value="essence">Essence</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="electrique">Électrique</option>
+                            <option value="hybride">Hybride</option>
+                        </select>
+                    </div>
+                    <!-- Moteur -->
+                    <div class="form-group">
+                        <label for="moteur">Moteur :</label>
+                        <input type="text" id="moteur" name="moteur" required>
+                    </div>
+                    <!-- Puissance -->
+                    <div class="form-group">
+                        <label for="puissance">Puissance :</label>
+                        <input type="number" id="puissance" name="puissance" required>
+                    </div>
+                </div>
+
+                <div class="flex-row">
+                    
+                    <!-- Consommation -->
+                    <div class="form-group">
+                        <label for="mileage">Consommation :</label>
+                        <input type="number" id="mileage" name="mileage" required>
+                    </div>
+                    <!-- Kilométrage -->
+                    <div class="form-group">
+                        <label for="kilometrage">Kilométrage (en km) :</label>
+                        <input type="number" id="kilometrage" name="kilometrage" required>
+                    </div>
+                    <!-- Nombre de sièges -->
+                    <div class="form-group">
+                        <label for="sieges">Nombre de sièges :</label>
+                        <input type="number" id="sieges" name="sieges" required>
+                    </div>
+                </div>
+
+                <div class="flex-row">
+                    <!-- Année -->
+                    <div class="form-group">
+                        <label for="annee">Année :</label>
+                        <input type="number" id="annee" name="annee" required>
+                    </div>
+                    <!-- Type de propriétaire -->
+                    <div class="form-group">
+                        <label for="proprietaire">Propriétaire (Première main, Seconde main, etc.) :</label>
+                        <select id="proprietaire" name="proprietaire" required>
+                            <option value=""></option>
+                            <option value="premiere_main">Première main</option>
+                            <option value="seconde_main">Seconde main</option>
+                            <option value="troisieme_main">Troisième main</option>
+                            <option value="quatrieme_plus">Quatrième main et plus</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="button-container">
+        <div class="btn-container">
             <button class="btn" type="submit">Prédire le prix</button>
         </div>
 
@@ -57,6 +128,7 @@
             <input type="text" id="prix-estime" placeholder="Prix estimé" disabled>
         </div>
     </div>
+
     <div class="footer">
         &copy; 2025 LINY Voitures d'Occasion. Tous droits réservés.
     </div>

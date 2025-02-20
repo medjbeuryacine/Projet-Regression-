@@ -42,7 +42,7 @@ body {
 }
 
 /* Contenu principal */
-.container {
+.contenu-pricipal {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -51,11 +51,21 @@ body {
     padding: 20px;
 }
 
+
+.form-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
 .title {
     color: #0a358c;
     font-size: 36px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .subtitle {
@@ -66,21 +76,22 @@ body {
 }
 
 /* Formulaire */
-.form-container {
+.sous-form-container {
     border: 2px solid #ccc;
     padding: 25px;
     border-radius: 10px;
     background-color: white;
     width: 80%;
-    max-width: 800px;
+    max-width: 1000px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
-.form-container h2 {
-    color: #0a358c;
-    font-size: 28px;
+.sous-form-container h2 {
+    color: #020814;
+    font-size: 20px;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .form-group {
@@ -92,6 +103,7 @@ body {
     margin-bottom: 5px;
     font-size: 16px;
     color: #333;
+    text-align: left;
 }
 
 .form-group input, .form-group select {
@@ -118,17 +130,29 @@ body {
     width: 48%;
 }
 
+.buttons-pages-container {
+    position: fixed;
+    bottom: 50px; /* Espacement depuis le bas de la page */
+    right: 20px;  /* Espacement depuis la droite de la page */
+    gap: 30px;  /* Espacement entre les boutons */
+    z-index: 1000;  /* S'assurer que les boutons sont au-dessus des autres éléments */
+    display: flex;  /* Aligne les boutons horizontalement */
+    flex-direction: row; /* Aligne les boutons sur une ligne */
+}
+
 .btn-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .btn {
     background-color: #FF6F00;
     color: white;
-    padding: 15px 30px;
-    margin-top: 20px;
+    padding: 15px 30px;  /* Ajustez le padding pour garder la taille */
+    width: 300px;  /* Définir une largeur fixe pour les boutons */
+    height: 55px;  /* Définir une hauteur fixe pour les boutons */
     border: none;
     cursor: pointer;
     font-size: 18px;
@@ -136,21 +160,49 @@ body {
     font-weight: bold;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center; /* Centrer le texte */
+    align-items: center;  /* Centrer verticalement */
 }
 .btn:hover {
     background-color: #c05606;
     transform: scale(1.05);
 }
 
+/* Section des graphiques */
+.graph-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap; /* Permet de s'adapter aux petits écrans */
+}
+
+.div-graph {
+    width: 45%; /* Chaque graphique prend environ la moitié de l'espace */
+    min-width: 300px; /* Pour éviter que ça devienne trop petit */
+    height: 400px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Résultat du prix */
 .result-container {
     margin-top: 30px;
     display: flex;
-    justify-content: center;
+    justify-content: center;  /* Centrer horizontalement */
+    align-items: center;      /* Centrer verticalement */
+    width: 50%;  /* Augmenter la largeur du conteneur */
+    margin-left: auto;
+    margin-right: auto;  /* Centrer le conteneur horizontalement dans son parent */
 }
 
 .result-container input {
-    width: 60%;
+    width: 100%;  /* Utiliser toute la largeur du conteneur */
+    max-width: 400px; /* Ajouter une largeur maximale pour que ça ne devienne pas trop grand */
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -159,7 +211,7 @@ body {
     color: #0a358c;
     text-align: center;
     background-color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 15px 15px rgba(255, 111, 0, 0.3);  /* Ombre orangée légère */
 }
 
 .footer {
@@ -167,4 +219,29 @@ body {
     color: white;
     padding: 10px;
     width: 100%;
+}
+
+
+/* Responsivité pour les petits écrans */
+@media (max-width: 768px) {
+    .buttons-pages-container {
+        flex-direction: column; /* Empile les boutons verticalement */
+        gap: 15px;  /* Moins d'espace entre les boutons */
+        bottom: 20px; /* Réduit l'espace du bas sur petits écrans */
+        right: 10px; /* Réduit l'espace à droite sur petits écrans */
+    }
+
+    .btn {
+        width: 150px; /* Réduit la largeur des boutons sur petits écrans */
+        height: 45px; /* Réduit la hauteur des boutons sur petits écrans */
+        font-size: 16px;  /* Réduit la taille du texte sur petits écrans */
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        width: 130px; /* Réduit encore plus la largeur sur très petits écrans */
+        height: 40px; /* Réduit encore plus la hauteur sur très petits écrans */
+        font-size: 14px;  /* Réduit davantage la taille du texte sur très petits écrans */
+    }
 }
