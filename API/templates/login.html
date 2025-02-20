@@ -14,11 +14,17 @@
         </div>
     </div>
 
+    <!-- Affichage des messages flash -->
+    {% if message %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endif %}
 
     <div class="form-container">
         <div class="sous-form-container">
-            <h2>Connectez-vous</h1>
-            <form method="GET" action="/analyse">
+            <h2>Connectez-vous</h2>
+            <form method="POST" action="/login">
                 <div class="form-group">
                     <input type="text" name="username" placeholder="Nom d'identifiant" required />
                 </div>
@@ -28,15 +34,13 @@
                 <div class="btn-container">
                     <button class="btn" type="submit">Se connecter</button>
                 </div>
-            </form>   
+            </form>    
         </div>
     </div>
-
 
     <div class="footer">
         &copy; 2025 LINY Voitures d'Occasion. Tous droits réservés.
     </div>
-
 
 </body>
 </html>

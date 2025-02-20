@@ -41,6 +41,19 @@ body {
     margin-right: 8px;
 }
 
+/* Message flash */
+.flash-message {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 50%;
+}
+
+
 /* Contenu principal */
 .contenu-pricipal {
     flex-grow: 1;

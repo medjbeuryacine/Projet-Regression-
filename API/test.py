@@ -3,31 +3,37 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 import pymysql
+from dotenv import load_dotenv
+import os
 from itsdangerous import URLSafeSerializer
+
+load_dotenv()
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-SECRET_KEY = "projetliny"
+SECRET_KEY = "votre_clef_secrète_pour_signer_les_cookies"  # Utilisez une clé sécurisée et complexe
 serializer = URLSafeSerializer(SECRET_KEY)
 
 # ____________________________________________________CONNEXION A LA BASE DE DONNÉES_________________________________________________
+
 def BDD():
     try:
         connexion = pymysql.connect(
-            host="192.168.20.139",
-            user="root",
-            password="devIA25",
-            database="Projet_Regression",
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME"),
             cursorclass=pymysql.cursors.DictCursor
         )
         return connexion
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur de connexion : {e}")
+        raise HTTPException(status_code=500, detail=f"Problème de connexion à la base de données: {e}")
 
 # ____________________________________________Vérification de l'utilisateur connecté_________________________________________________
+
 def utilisateur_connecte(request: Request):
     token = request.cookies.get("session_token")
     if not token:
@@ -39,30 +45,17 @@ def utilisateur_connecte(request: Request):
     except Exception:
         raise HTTPException(status_code=403, detail="Token invalide ou expiré")
 
-# ____________________________________________Gestion des Flash Messages_________________________________________________
-def get_flash_message(request: Request):
-    """Récupère le message flash et le supprime après affichage"""
-    message = request.cookies.get("flash_message")
-    response = {"message": message}
-    return response
-
-def set_flash_message(response: Response, message: str):
-    """Stocke un message flash temporaire"""
-    response.set_cookie(key="flash_message", value=message, max_age=3)
-
 # _________________________________________________________Route d'accueil__________________________________________________________
 
 @app.get("/", response_class=HTMLResponse)
 async def accueil(request: Request):
-    flash_data = get_flash_message(request)
-    return templates.TemplateResponse("accueil.html", {"request": request, **flash_data})
+    return templates.TemplateResponse("accueil.html", {"request": request, "message": "Bienvenue sur LINY"})
 
 # _________________________________________________________Page de login____________________________________________________________
 
-@app.post("/login", response_class=HTMLResponse)
+@app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    flash_data = get_flash_message(request)
-    return templates.TemplateResponse("login.html", {"request": request, **flash_data})
+    return templates.TemplateResponse("login.html", {"request": request})
 
 @app.post("/login")
 async def login(username: str = Form(...), password: str = Form(...), response: Response = None):
@@ -80,9 +73,7 @@ async def login(username: str = Form(...), password: str = Form(...), response: 
             response.set_cookie(key="session_token", value=session_token, httponly=True, secure=True)
             return response
         else:
-            response = RedirectResponse(url="/login", status_code=303)
-            set_flash_message(response, "Nom d'utilisateur ou mot de passe incorrect.")
-            return response
+            raise HTTPException(status_code=404, detail="Nom d'utilisateur ou mot de passe incorrect.")
     finally:
         connexion.close()
 
@@ -90,21 +81,18 @@ async def login(username: str = Form(...), password: str = Form(...), response: 
 
 @app.get("/analyse", response_class=HTMLResponse)
 async def analyse_page(request: Request, username: str = Depends(utilisateur_connecte)):
-    flash_data = get_flash_message(request)
-    return templates.TemplateResponse("analyse.html", {"request": request, "username": username, **flash_data})
+    return templates.TemplateResponse("analyse.html", {"request": request, "username": username})
 
 # ______________________________________________________Page de prédiction sécurisée_________________________________________________
 
 @app.get("/prediction", response_class=HTMLResponse)
 async def prediction_page(request: Request, username: str = Depends(utilisateur_connecte)):
-    flash_data = get_flash_message(request)
-    return templates.TemplateResponse("prediction.html", {"request": request, "username": username, **flash_data})
+    return templates.TemplateResponse("prediction.html", {"request": request, "username": username})
 
 # _________________________________________________________Déconnexion______________________________________________________________
 
 @app.get("/logout")
 async def logout(response: Response):
-    response = RedirectResponse(url="/login")
+    response = RedirectResponse(url="/")
     response.delete_cookie(key="session_token")
-    set_flash_message(response, "✅ Déconnexion réussie.")
     return response
